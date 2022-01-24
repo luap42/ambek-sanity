@@ -52,7 +52,20 @@ finally:
     table_html = ""
 
     for pl in possible_links:
-        table_html += f"<tr><td>{pl['ambek_id']}</td><td>{pl['title']}</td><td><a href=\"{pl['link']}\">Link</a></td>"
+        cls = ""
+        if "Satzung der Studierendenschaft" in pl['title']:
+            cls = "-sds"
+        elif "Rahmenwahlordnung" in pl['title']:
+            cls = "-rwo"
+        elif "Beitragsordnung" in pl['title']:
+            cls = "-bo"
+        elif "Ordnung zum Potsdamer Semesterticket" in pl['title']:
+            cls = "-semtixo"
+
+        if "Lesefassung" in pl['title']:
+            cls += " -lf"
+
+        table_html += f"<tr class=\"{cls}\"><td>{pl['ambek_id']}</td><td>{pl['title']}</td><td><a href=\"{pl['link']}\">Link</a></td>"
 
     f = open("index.html", "r")
     fc = f.read()
